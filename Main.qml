@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Window
 import QtQuick.Controls.Material
+import DataBase 1.0
 
 ApplicationWindow {
     width: 640
@@ -8,10 +9,20 @@ ApplicationWindow {
     visible: true
     title: qsTr("ToDoList")
 
+    Component.onCompleted: {
+        database.getDataBase()
+        for (var i = 0; i < database.list.length; i += 2) {
+                listModel.append({_title: database.list[i], _des: database.list[i + 1]});
+            }
+    }
+
     ListModel{
         id:listModel
     }
-
+    
+    DataBase{
+        id:database
+    }
 
     header:Rectangle{
         width: parent.width
@@ -45,6 +56,7 @@ ApplicationWindow {
 
                 delegate: Rectangle{
                     id:dlg
+
                     property string title
                     property string description
                     title: _title
@@ -73,13 +85,15 @@ ApplicationWindow {
                         MouseArea{
                             anchors.fill: parent
                             onClicked: {
+                                database.deleteDataBase(dlg.title, dlg.description)
                                 listModel.remove(index)
+
                             }
                         }
                     }
 
                     Column{
-                        padding: 5
+                        padding: 7
 
                         Text {
                             text:dlg.title
@@ -91,9 +105,7 @@ ApplicationWindow {
                             font.pixelSize: 15
 
                         }
-
                     }
-
 
                     Behavior on x {
                         NumberAnimation {
@@ -148,6 +160,7 @@ ApplicationWindow {
                     width: 100
                     onClicked: {
                         listModel.append({_title: t1.text, _des: t2.text})
+                        database.addList(t1.text, t2.text)
                         t1.text = ""
                         t2.text = ""
                     }
@@ -155,8 +168,6 @@ ApplicationWindow {
             }
         }
     }
-
-
 }
 
 

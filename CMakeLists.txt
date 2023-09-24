@@ -6,7 +6,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.2 REQUIRED COMPONENTS Quick)
-
+find_package(Qt6 REQUIRED COMPONENTS Sql)
 
 qt_add_executable(appToDoList
     main.cpp
@@ -16,6 +16,7 @@ qt_add_qml_module(appToDoList
     URI ToDoList
     VERSION 1.0
     QML_FILES Main.qml
+    SOURCES database.h database.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -32,7 +33,7 @@ set_target_properties(appToDoList PROPERTIES
 target_link_libraries(appToDoList
     PRIVATE Qt6::Quick
 )
-
+target_link_libraries(appToDoList PRIVATE Qt6::Sql)
 include(GNUInstallDirs)
 install(TARGETS appToDoList
     BUNDLE DESTINATION .
