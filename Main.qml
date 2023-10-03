@@ -158,6 +158,7 @@ ApplicationWindow {
                     text: "Add"
                     anchors.horizontalCenter: parent.horizontalCenter
                     width: 100
+                    enabled: t1.text.length > 0 && t2.text.length > 0
                     onClicked: {
                         listModel.append({_title: t1.text, _des: t2.text})
                         database.addList(t1.text, t2.text)

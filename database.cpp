@@ -40,10 +40,8 @@ void dataBase::getDataBase()
         temp.append(d);
     }
     if(cppList != temp)
-    {
-        cppList = temp;
         setList(temp);
-    }
+
 }
 
 QStringList dataBase::getList()
