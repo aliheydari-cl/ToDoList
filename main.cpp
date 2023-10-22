@@ -6,6 +6,8 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
+    QCoreApplication::setOrganizationName("Ali Heidary");
+
     qmlRegisterType<dataBase>("DataBase", 1, 0, "DataBase");
 
     QQmlApplicationEngine engine;
