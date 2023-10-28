@@ -15,13 +15,26 @@ qt_add_executable(appToDoList
 qt_add_qml_module(appToDoList
     URI ToDoList
     VERSION 1.0
-    QML_FILES Main.qml
+
     SOURCES database.h database.cpp
+
+    QML_FILES Main.qml
+    QML_FILES AddTask.qml
+    QML_FILES ShowTask.qml
+    QML_FILES Clock.qml
+
     RESOURCES images/about.png
     RESOURCES images/email.png
     RESOURCES images/help.png
     RESOURCES images/menu.png
-    RESOURCES images/settings.png
+    RESOURCES images/settings.png  
+    RESOURCES images/add.png
+    RESOURCES images/add.png
+    RESOURCES images/back.png
+    RESOURCES images/clock-icon.png
+    RESOURCES images/clock.svg
+    RESOURCES images/clock_Hand.svg
+    RESOURCES images/Minutes_Clock.svg
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

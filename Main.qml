@@ -8,11 +8,12 @@ import DataBase 1.0
 
 ApplicationWindow {
     id:window
-    width: 550
-    height: 480
+    width: 600
+    height: 700
     visible: true
     title: qsTr("ToDoList")
     font.pixelSize: setting.fontSize
+    Material.theme: setting.backgroundColor === "Light" ? Material.Light : Material.Dark
 
     Settings{
         id:setting
@@ -22,8 +23,8 @@ ApplicationWindow {
 
     Component.onCompleted: {
         database.getDataBase()
-        for (var i = 0; i < database.list.length; i += 2) {
-                listModel.append({_title: database.list[i], _des: database.list[i + 1]});
+        for (var i = 0; i < database.list.length; i +=3) {
+                listModel.append({_title: database.list[i], _des: database.list[i+1], _time: database.list[i+2]});
             }
     }
 
@@ -71,7 +72,6 @@ ApplicationWindow {
                     text: qsTr("About")
                     onTriggered: aboutDialog.open()
                     icon.source: "images/about"
-
                 }
             }
 
@@ -87,12 +87,14 @@ ApplicationWindow {
             onAccepted: aboutDialog.close()
 
             ColumnLayout{
+
                 spacing: 20
                 Text {
                     text: qsTr("Created by Ali Heidary")
                 }
 
                 Row{
+
                     Image {
                         source: "images/email"
                         width: 20
@@ -138,6 +140,7 @@ ApplicationWindow {
             onRejected: settingDialog.close()
 
             ColumnLayout{
+
                 CheckBox{
                     id:checkBox
                     text: "Dark mode"
@@ -174,135 +177,39 @@ ApplicationWindow {
         }
     }
 
-    Item{
-        id:leftItem
-        height: parent.height
-        width: parent.width * 0.5
-        anchors.left: parent.left
-        Rectangle{
-            anchors.fill: parent
-            color: setting.backgroundColor === "Light" ? "white" : "black"
-
-            ListView{
-                id:lv
-                width: parent.width * 0.9
-                height: parent.height * 0.7
-                model: listModel
-                spacing:5
-                anchors.centerIn: parent
-
-                delegate: Rectangle{
-                    id:dlg
-
-                    property string title
-                    property string description
-                    title: _title
-                    description: _des
-
-                    height: 60
-                    width: lv.width
-                    radius: 10
-                    color: setting.backgroundColor === "Light" ? "#EEEEEE" : "#757575"
-
-                    Rectangle{
-                        id:rect
-                        color: "red"
-                        height: parent.height
-                        width: 60
-                        anchors.right: parent.right
-                        radius: 10
-
-                        Text {
-                            text: "DELETE"
-                            font.pixelSize: 14
-                            font.bold: true
-                            anchors.centerIn: parent
-                        }
-
-                        MouseArea{
-                            anchors.fill: parent
-                            onClicked: {
-                                database.deleteDataBase(dlg.title, dlg.description)
-                                listModel.remove(index)
-
-                            }
-                        }
-                    }
-
-                    Column{
-                        padding: 7
-
-                        Text {
-                            text:dlg.title
-                            font.bold: true
-                            font.pixelSize: 17
-                        }
-                        Text {
-                            text: dlg.description
-                            font.pixelSize: 15
-
-                        }
-                    }
-
-                    Behavior on x {
-                        NumberAnimation {
-                        from: rect.width / 2
-                        to: rect.width / 2 - 30
-                        duration: 1000
-                        easing.type: Easing.OutBounce
-                        }
-                    }
-
-                    Component.onCompleted: {
-                        x = 1;
-                    }
-                }
-            }
-        }
+    AddTask{
+        id:addTask
     }
 
-    Item{
-        id:rightItem
-        height: parent.height
-        width: parent.width * 0.5
+    ShowTask{
+        id:showTask
+    }
 
-        anchors.right: parent.right
-        Rectangle{
-            anchors.fill: parent
-            color: setting.backgroundColor === "Light" ? "#EEEEEE" : "#757575"
-            Column{
-                height: parent.height * 0.7
-                width: parent.width
-                spacing: 40
-                anchors.verticalCenter: parent.verticalCenter
+    StackView{
+        id:stackView
+        initialItem: showTask
+    }
 
-                TextField{
-                    id:t1
-                    placeholderText: "Label"
-                    width: parent.width * 0.6
-                    anchors.horizontalCenter: parent.horizontalCenter
+    footer: Rectangle{
+        id:footer
+        color: "#4CAF50"
+        width: parent.width
+        height: 40
 
-                }
+        ToolButton{
+            id:addButton
+            anchors.centerIn: parent
+            width: 50
+            height: 50
+            icon.source: stackView.depth > 1 ? "images/back" : "images/add"
+            icon.height: 50
+            icon.width: 50
 
-                TextField{
-                    id:t2
-                    placeholderText: "Description"
-                    width: parent.width * 0.6
-                    anchors.horizontalCenter: parent.horizontalCenter
-
-                }
-
-                Button{
-                    text: "Add"                   
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    width: 100
-                    enabled: t1.text.length > 0 && t2.text.length > 0
-                    onClicked: {
-                        listModel.append({_title: t1.text, _des: t2.text})
-                        database.addList(t1.text, t2.text)
-                        t1.text = ""
-                        t2.text = ""
-                    }
+            MouseArea{
+                anchors.fill: parent
+                id:footerButton
+                onClicked: {
+                    stackView.depth > 1 ? stackView.pop() : stackView.push(addTask)
                 }
             }
         }

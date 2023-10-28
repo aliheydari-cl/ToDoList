@@ -5,11 +5,11 @@ dataBase::dataBase(QObject *parent)
     : QObject{parent}
 {
     QString fileName;
-    fileName = QCoreApplication::applicationDirPath() + "/list.db";
+    fileName = QCoreApplication::applicationDirPath() + "/ToDoList.db";
     db.setDatabaseName(fileName);
     db.open();
     QSqlQuery q;
-    q.exec("CREATE TABLE list (id INTEGER PRIMARY KEY, title TEXT, description TEXT)");
+    q.exec("CREATE TABLE list (id INTEGER PRIMARY KEY, title TEXT, description TEXT, time TEXT)");
 }
 
 dataBase::~dataBase()
@@ -17,12 +17,13 @@ dataBase::~dataBase()
     db.close();
 }
 
-void dataBase::addList(QString title,QString des)
+void dataBase::addList(QString title, QString des, QString time)
 {
     QSqlQuery q;
-    q.prepare("INSERT INTO list (title, description) VALUES (:t, :d)");
+    q.prepare("INSERT INTO list (title, description, time) VALUES (:t, :d, :time)");
     q.bindValue(":t", title);
     q.bindValue(":d", des);
+    q.bindValue(":time", time);
 
     q.exec();
 }
@@ -31,13 +32,16 @@ void dataBase::getDataBase()
 {
     QStringList temp;
     QSqlQuery q;
-    q.exec("SELECT title, description FROM list");
+    q.exec("SELECT title, description, time FROM list");
     while(q.next())
     {
         QString t = q.value(0).toString();
         QString d = q.value(1).toString();
+        QString time = q.value(2).toString();
         temp.append(t);
         temp.append(d);
+        temp.append(time);
+
     }
     if(cppList != temp)
         setList(temp);

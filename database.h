@@ -18,7 +18,7 @@ signals:
 
 
 public slots:
-    void addList(QString title, QString des);
+    void addList(QString title, QString des, QString time);
     void getDataBase();
     QStringList getList();
     void setList(QStringList l);
