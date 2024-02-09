@@ -5,7 +5,13 @@ dataBase::dataBase(QObject *parent)
     : QObject{parent}
 {
     QString fileName;
-    fileName = QCoreApplication::applicationDirPath() + "/ToDoList.db";
+
+    #if defined(Q_OS_ANDROID)
+        fileName = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/ToDoList.db";
+    #else
+        fileName = QCoreApplication::applicationDirPath() + "/ToDoList.db";
+    #endif
+
     db.setDatabaseName(fileName);
     db.open();
     QSqlQuery q;

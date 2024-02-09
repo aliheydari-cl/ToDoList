@@ -26,7 +26,7 @@ Page{
                 description: _des
                 time: _time
 
-                height: 60
+                height: descriptionText.implicitHeight + 30
                 width: lv.width
                 radius: 10
                 color: setting.backgroundColor === "Light" ? "#EEEEEE" : "#757575"
@@ -95,8 +95,10 @@ Page{
                     }
 
                     Text {
+                        id: descriptionText
                         text: dlg.description
                         font.pixelSize: setting.fontSize
+                        wrapMode: Text.Wrap
                     }
                 }
             }

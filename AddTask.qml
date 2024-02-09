@@ -42,7 +42,7 @@ Page{
                 }
             }
 
-            TextField{
+            TextArea{
                 id:t2
                 placeholderText: "Description"
                 width: parent.width * 0.6
