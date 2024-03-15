@@ -23,6 +23,7 @@ public slots:
     QStringList getList();
     void setList(QStringList l);
     void deleteDataBase(QString t, QString d);
+    void deleteAll();
 
 private:
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");

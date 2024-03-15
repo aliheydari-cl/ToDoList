@@ -75,8 +75,14 @@ void dataBase::deleteDataBase(QString t, QString d)
     q.bindValue(":t", t);
     q.bindValue(":d", d);
 
-    if(!q.exec())
-        qDebug() << "Error";
+    q.exec();
+}
 
+void dataBase::deleteAll()
+{
+    QSqlQuery q;
+    q.prepare("DELETE FROM list");
+
+    q.exec();
 }
 

@@ -15,7 +15,7 @@ ApplicationWindow {
     font.pixelSize: setting.fontSize
     Material.theme: setting.backgroundColor === "Light" ? Material.Light : Material.Dark
 
-    Settings{
+    Settings {
         id:setting
         property string backgroundColor
         property int fontSize
@@ -28,32 +28,32 @@ ApplicationWindow {
             }
     }
 
-    ListModel{       
+    ListModel {
         id:listModel
     }
     
-    DataBase{
+    DataBase {
         id:database
     }
 
-    header:Rectangle{
+    header:Rectangle {
         width: parent.width
         height: 40
         color: "#4CAF50"
 
-        Text{
+        Text {
             text: "ToDoList"
             font.pixelSize: 18
             font.bold: true
             anchors.centerIn: parent
         }
 
-        ToolButton{
+        ToolButton {
             icon.source: "images/menu"
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
 
-            Menu{
+            Menu {
                 id: optionsMenu
                 x: parent.width - width
                 transformOrigin: Menu.TopRight
@@ -77,7 +77,7 @@ ApplicationWindow {
 
             onClicked: optionsMenu.open()
         }
-        Dialog{
+        Dialog {
             id:aboutDialog
             title: "About"
             x: Math.round((window.width - width) / 2)
@@ -93,7 +93,7 @@ ApplicationWindow {
                     text: qsTr("Created by Ali Heidary")
                 }
 
-                Row{
+                Row {
 
                     Image {
                         source: "images/email"
@@ -108,7 +108,7 @@ ApplicationWindow {
             }
         }
 
-        Dialog{
+        Dialog {
             id:helpDialog
             title: "Help"
             x: Math.round((window.width - width) / 2)
@@ -128,7 +128,7 @@ ApplicationWindow {
             }
         }
 
-        Dialog{
+        Dialog {
             id:settingDialog
             title: "Setting"
             x: Math.round((window.width - width) / 2)
@@ -139,9 +139,9 @@ ApplicationWindow {
 
             onRejected: settingDialog.close()
 
-            ColumnLayout{
+            ColumnLayout {
 
-                CheckBox{
+                CheckBox {
                     id:checkBox
                     text: "Dark mode"
                     checked: setting.backgroundColor === "Light" ? false : true
@@ -177,26 +177,26 @@ ApplicationWindow {
         }
     }
 
-    AddTask{
+    AddTask {
         id:addTask
     }
 
-    ShowTask{
+    ShowTask {
         id:showTask
     }
 
-    StackView{
+    StackView {
         id:stackView
         initialItem: showTask
     }
 
-    footer: Rectangle{
+    footer: Rectangle {
         id:footer
         color: "#4CAF50"
         width: parent.width
         height: 40
 
-        ToolButton{
+        ToolButton {
             id:addButton
             anchors.centerIn: parent
             width: 50
@@ -205,7 +205,7 @@ ApplicationWindow {
             icon.height: 50
             icon.width: 50
 
-            MouseArea{
+            MouseArea {
                 anchors.fill: parent
                 id:footerButton
                 onClicked: {

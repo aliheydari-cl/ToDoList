@@ -1,37 +1,37 @@
 import QtQuick
 import QtQuick.Controls.Material
 
-Page{
+Page {
     id:addTask
     width: window.width
     height: window.height
 
-    Clock{
+    Clock {
         id:clock
     }
 
-    Pane{
+    Pane {
         anchors.fill: parent
-        Column{
+        Column {
             height: parent.height * 0.7
             width: parent.width
             spacing: 40
             anchors.verticalCenter: parent.verticalCenter
 
-            TextField{
+            TextField {
                 id:t1
                 placeholderText: "Label"
                 width: parent.width * 0.6
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 
-            TextField{
+            TextField {
                 id:clockInput
                 placeholderText: "Time"
                 width: parent.width * 0.6
                 anchors.horizontalCenter: parent.horizontalCenter
 
-                ToolButton{
+                ToolButton {
                     anchors.right: clockInput.right
                     icon.source: "images/clock-icon"
                     anchors.verticalCenter: parent.verticalCenter
@@ -42,14 +42,14 @@ Page{
                 }
             }
 
-            TextArea{
+            TextArea {
                 id:t2
                 placeholderText: "Description"
                 width: parent.width * 0.6
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 
-            Button{
+            Button {
                 text: "Add"
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: 100

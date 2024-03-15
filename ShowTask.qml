@@ -2,23 +2,22 @@ import QtQuick
 import QtQuick.Controls.Material
 import QtQuick.Layouts
 
-Page{
+Page {
     width: window.width
     height: window.height
 
-    Pane{
+    Pane {
         anchors.fill: parent
 
-        ListView{
+        ListView {
             id:lv
             width: parent.width
             height: contentHeight
             model: listModel
             spacing:5
 
-            delegate: Rectangle{
+            delegate: Rectangle {
                 id:dlg
-
                 property string title
                 property string description
                 property string time
@@ -31,7 +30,7 @@ Page{
                 radius: 10
                 color: setting.backgroundColor === "Light" ? "#EEEEEE" : "#757575"
 
-                Rectangle{
+                Rectangle {
                     id:rect
                     color: "red"
                     height: parent.height
@@ -46,7 +45,7 @@ Page{
                         anchors.centerIn: parent
                     }
 
-                    MouseArea{
+                    MouseArea {
                         anchors.fill: parent
                         onClicked: {
                             database.deleteDataBase(dlg.title, dlg.description)
@@ -58,7 +57,7 @@ Page{
                         }
                     }
 
-                    PropertyAnimation{
+                    PropertyAnimation {
                         id: anim
                         target: dlg
                         duration: 1000
@@ -68,7 +67,7 @@ Page{
                     }
                 }
 
-                Column{
+                Column {
                     padding: 7
 
                     RowLayout{
@@ -102,6 +101,31 @@ Page{
                     }
                 }
             }
+        }
+        Rectangle {
+            visible: listModel.count > 0 ? true : false
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: lv.bottom
+            anchors.topMargin: 30
+            width: 100
+            height: 50
+            color: "#757575"
+            radius: 20
+
+            Text {
+                text: qsTr("Delete all")
+                anchors.centerIn: parent
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    database.deleteAll()
+
+                    listModel.clear();
+                }
+            }
+
         }
     }
 }

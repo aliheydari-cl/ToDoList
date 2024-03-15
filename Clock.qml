@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls.Material
 import QtQuick.Layouts
 
-Dialog{
+Dialog {
     property alias timeH: time1
     property alias timeM: time2
 
@@ -11,30 +11,30 @@ Dialog{
     x: Math.round((window.width - width) / 2)
     y: Math.round(window.height / 6)
 
-    Column{
+    Column {
         spacing: 30
 
         Label{
             text: "Select time"
         }
 
-        Row{
+        Row {
             spacing: 5
             anchors.horizontalCenter: parent.horizontalCenter
 
-            TextField{
+            TextField {
                 id:time1
                 width: 50
             }
 
-            Label{
+            Label {
                 text: ":"
                 font.bold: true
                 font.pixelSize: 30
                 anchors.verticalCenter: parent.verticalCenter
             }
 
-            TextField{
+            TextField {
                 id:time2
                 width: 50
             }
