@@ -13,7 +13,7 @@ ApplicationWindow {
     visible: true
     title: qsTr("ToDoList")
     font.pixelSize: setting.fontSize
-    Material.theme: setting.backgroundColor === "Light" ? Material.Light : Material.Dark
+    Material.theme: setting.backgroundColor === "light" ? Material.Light : Material.Dark
 
     Settings {
         id:setting
@@ -89,6 +89,7 @@ ApplicationWindow {
             ColumnLayout{
 
                 spacing: 20
+
                 Text {
                     text: qsTr("Created by Ali Heidary")
                 }
@@ -119,14 +120,18 @@ ApplicationWindow {
 
             Column{
                 Text {
-                    width: helpDialog.availableHeight
+                    width: 300
+
                     text: qsTr("This application allows you to create a list of your daily tasks and activities."
-                    + "By entering the title and description for each task, you can add them to your list."
-                    + "Additionally, you have the option to remove tasks from your list using the 'Delete' feature.")
-                    wrapMode: Text.Wrap
+                    + "By entering the title, description, and time for each task, you can add them to your list. "
+                    + "Additionally, you have the option to edit or delete individual tasks, "
+                    + "as well as the option to delete all tasks at once using the 'Delete All' feature.")
+
+                    wrapMode:Text.Wrap
                 }
             }
         }
+
 
         Dialog {
             id:settingDialog
@@ -135,7 +140,7 @@ ApplicationWindow {
             y: Math.round(window.height / 6)
             focus: true
             standardButtons: Dialog.Close | Dialog.Ok
-            onAccepted: checkBox.checked ?  setting.backgroundColor = "black" : setting.backgroundColor = "Light"
+            onAccepted: checkBox.checked ?  setting.backgroundColor = "black" : setting.backgroundColor = "light"
 
             onRejected: settingDialog.close()
 
@@ -144,7 +149,7 @@ ApplicationWindow {
                 CheckBox {
                     id:checkBox
                     text: "Dark mode"
-                    checked: setting.backgroundColor === "Light" ? false : true
+                    checked: setting.backgroundColor === "light" ? false : true
                 }
 
                 RowLayout {

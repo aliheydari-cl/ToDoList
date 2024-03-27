@@ -1,4 +1,6 @@
 import QtQuick
+import QtCore
+
 import QtQuick.Controls.Material
 
 Page {
@@ -8,8 +10,12 @@ Page {
 
     Clock {
         id:clock
-    }
+        x: Math.round((window.width - width) / 2)
+        y: Math.round(window.height / 6)
 
+        isAddTask: true
+    }
+    
     Pane {
         anchors.fill: parent
         Column {
@@ -30,7 +36,6 @@ Page {
                 placeholderText: "Time"
                 width: parent.width * 0.6
                 anchors.horizontalCenter: parent.horizontalCenter
-
                 ToolButton {
                     anchors.right: clockInput.right
                     icon.source: "images/clock-icon"

@@ -6,6 +6,10 @@ Page {
     width: window.width
     height: window.height
 
+    Edit {
+        id:editPage
+    }
+
     Pane {
         anchors.fill: parent
 
@@ -28,15 +32,18 @@ Page {
                 height: descriptionText.implicitHeight + 30
                 width: lv.width
                 radius: 10
-                color: setting.backgroundColor === "Light" ? "#EEEEEE" : "#757575"
+                color: setting.backgroundColor === "light" ? "#EEEEEE" : "#757575"
 
                 Rectangle {
                     id:rect
                     color: "red"
-                    height: parent.height
                     width: 60
-                    anchors.right: parent.right
+                    height: parent.height * 0.85
                     radius: 10
+
+                    anchors.rightMargin: 5
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.right: parent.right
 
                     Text {
                         text: "DELETE"
@@ -64,6 +71,34 @@ Page {
                         property: "width"
                         to: 0
                         onStopped: listModel.remove(index)
+                    }
+                }
+
+                Rectangle {
+                    id: editButton
+                    color: "#4CAF50"
+                    width: 60
+                    height: parent.height * 0.85
+                    radius: 10
+
+                    anchors.right: rect.left
+                    anchors.rightMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    Text {
+                        text: qsTr("Edit")
+                        anchors.centerIn: parent
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            editPage.titleText = dlg.title
+                            editPage.descriptionText = dlg.description
+                            editPage.timeText = dlg.time
+
+                            editPage.open()
+                        }
                     }
                 }
 
@@ -102,14 +137,16 @@ Page {
                 }
             }
         }
+
         Rectangle {
             visible: listModel.count > 0 ? true : false
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: lv.bottom
-            anchors.topMargin: 30
+            anchors.topMargin: 20
             width: 100
             height: 50
-            color: "#757575"
+            color: setting.backgroundColor === "light" ? "#EEEEEE" : "#757575"
+
             radius: 20
 
             Text {
@@ -125,7 +162,6 @@ Page {
                     listModel.clear();
                 }
             }
-
         }
     }
 }

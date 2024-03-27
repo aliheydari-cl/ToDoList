@@ -15,7 +15,7 @@ dataBase::dataBase(QObject *parent)
     db.setDatabaseName(fileName);
     db.open();
     QSqlQuery q;
-    q.exec("CREATE TABLE list (id INTEGER PRIMARY KEY, title TEXT, description TEXT, time TEXT)");
+    q.exec("CREATE TABLE list (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, time TEXT)");
 }
 
 dataBase::~dataBase()
@@ -44,6 +44,7 @@ void dataBase::getDataBase()
         QString t = q.value(0).toString();
         QString d = q.value(1).toString();
         QString time = q.value(2).toString();
+
         temp.append(t);
         temp.append(d);
         temp.append(time);
@@ -68,12 +69,12 @@ void dataBase::setList(QStringList l)
     }
 }
 
-void dataBase::deleteDataBase(QString t, QString d)
+void dataBase::deleteDataBase(QString title, QString description)
 {
     QSqlQuery q;
-    q.prepare("DELETE FROM list WHERE title = :t AND description = :d ");
-    q.bindValue(":t", t);
-    q.bindValue(":d", d);
+    q.prepare("DELETE FROM list WHERE description = :description AND title = :title");
+    q.bindValue(":description", description);
+    q.bindValue(":title", title);
 
     q.exec();
 }
@@ -82,6 +83,19 @@ void dataBase::deleteAll()
 {
     QSqlQuery q;
     q.prepare("DELETE FROM list");
+
+    q.exec();
+}
+
+void dataBase::editDataBase(const QString &newTitle, const QString &newTime, const QString &newDescription, QString description, QString title)
+{
+    QSqlQuery q;
+    q.prepare("UPDATE list SET title = :newTitle, description = :newDescription, time = :newTime WHERE title = :title AND description = :description");
+    q.bindValue(":newTitle", newTitle);
+    q.bindValue(":newDescription", newDescription);
+    q.bindValue(":newTime", newTime);
+    q.bindValue(":description", description);
+    q.bindValue(":title", title);
 
     q.exec();
 }

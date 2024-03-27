@@ -22,8 +22,9 @@ public slots:
     void getDataBase();
     QStringList getList();
     void setList(QStringList l);
-    void deleteDataBase(QString t, QString d);
+    void deleteDataBase(QString title, QString description);
     void deleteAll();
+    void editDataBase(const QString &newTitle, const QString &newDescription, const QString &newTime, QString description, QString title);
 
 private:
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");

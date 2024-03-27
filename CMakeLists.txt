@@ -22,6 +22,7 @@ qt_add_qml_module(appToDoList
     QML_FILES AddTask.qml
     QML_FILES ShowTask.qml
     QML_FILES Clock.qml
+    QML_FILES Edit.qml
 
     RESOURCES images/about.png
     RESOURCES images/email.png

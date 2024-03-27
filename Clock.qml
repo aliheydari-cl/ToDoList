@@ -3,13 +3,11 @@ import QtQuick.Controls.Material
 import QtQuick.Layouts
 
 Dialog {
-    property alias timeH: time1
-    property alias timeM: time2
+    property string time
+    property bool isAddTask
 
     id:clock
     title: "Clock"
-    x: Math.round((window.width - width) / 2)
-    y: Math.round(window.height / 6)
 
     Column {
         spacing: 30
@@ -44,10 +42,13 @@ Dialog {
     standardButtons: Dialog.Close | Dialog.Ok
 
     onAccepted: {
-        clockInput.text = time1.text + ":" + time2.text
+        time = time1.text + ":" + time2.text
+
+        if(isAddTask)
+            clockInput.text = time
+        else
+            timeInput.text = time
     }
-
-
 }
 
 
