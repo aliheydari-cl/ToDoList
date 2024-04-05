@@ -36,6 +36,7 @@ qt_add_qml_module(appToDoList
     RESOURCES images/clock.svg
     RESOURCES images/clock_Hand.svg
     RESOURCES images/Minutes_Clock.svg
+    RESOURCES font/B-NAZANIN.TTF
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

@@ -28,6 +28,13 @@ ApplicationWindow {
             }
     }
 
+    FontLoader {
+        id: fontLoader
+        source: "font/B-NAZANIN.TTF"
+    }
+
+    font.family: fontLoader.name
+
     ListModel {
         id:listModel
     }
