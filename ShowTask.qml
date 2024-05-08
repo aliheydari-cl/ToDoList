@@ -29,7 +29,7 @@ Page {
                 description: _des
                 time: _time
 
-                height: descriptionText.implicitHeight + 30
+                height: descriptionText.height + titleText.height + 20
                 width: lv.width
                 radius: 10
                 color: setting.backgroundColor === "light" ? "#EEEEEE" : "#757575"
@@ -109,6 +109,7 @@ Page {
                         spacing: 10
 
                         Text {
+                            id: titleText
                             text:dlg.title
                             font.bold: true
                             font.pixelSize: setting.fontSize
@@ -133,6 +134,7 @@ Page {
                         text: dlg.description
                         font.pixelSize: setting.fontSize
                         wrapMode: Text.Wrap
+                        width: dlg.width - (editButton.width + rect.width + 25)
                     }
                 }
             }

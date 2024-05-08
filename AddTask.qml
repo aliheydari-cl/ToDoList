@@ -52,6 +52,7 @@ Page {
                 placeholderText: "Description"
                 width: parent.width * 0.6
                 anchors.horizontalCenter: parent.horizontalCenter
+                wrapMode: "Wrap"
             }
 
             Button {

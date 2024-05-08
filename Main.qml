@@ -110,7 +110,7 @@ ApplicationWindow {
                     }
 
                     Text {
-                        text: qsTr(" Aliheidary885@gmail.com")
+                        text: qsTr(" aliheydari.cl@gmail.com")
                     }
                 }
             }
