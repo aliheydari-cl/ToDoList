@@ -1,10 +1,9 @@
 import QtCore
-import QtQuick
 import QtQuick.Window
 import QtQuick.Controls.Material
 import QtQuick.Layouts
 
-import DataBase 1.0
+import Database
 
 ApplicationWindow {
     id:window
@@ -30,7 +29,7 @@ ApplicationWindow {
 
     FontLoader {
         id: fontLoader
-        source: "font/B-NAZANIN.TTF"
+        source: "qrc:/font/B-NAZANIN.TTF"
     }
 
     font.family: fontLoader.name
@@ -39,7 +38,7 @@ ApplicationWindow {
         id:listModel
     }
     
-    DataBase {
+    Database {
         id:database
     }
 
@@ -56,7 +55,7 @@ ApplicationWindow {
         }
 
         ToolButton {
-            icon.source: "images/menu"
+            icon.source: "qrc:/images/menu"
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
 
@@ -68,17 +67,17 @@ ApplicationWindow {
                 Action {
                     text: qsTr("Settings")
                     onTriggered: settingDialog.open()
-                    icon.source: "images/settings"
+                    icon.source: "qrc:/images/settings"
                 }
                 Action {
                     text: qsTr("Help")
                     onTriggered: helpDialog.open()
-                    icon.source: "images/help"
+                    icon.source: "qrc:/images/help"
                 }
                 Action {
                     text: qsTr("About")
                     onTriggered: aboutDialog.open()
-                    icon.source: "images/about"
+                    icon.source: "qrc:/images/about"
                 }
             }
 
@@ -104,7 +103,7 @@ ApplicationWindow {
                 Row {
 
                     Image {
-                        source: "images/email"
+                        source: "qrc:/images/email"
                         width: 20
                         height: 20
                     }
@@ -213,7 +212,7 @@ ApplicationWindow {
             anchors.centerIn: parent
             width: 50
             height: 50
-            icon.source: stackView.depth > 1 ? "images/back" : "images/add"
+            icon.source: stackView.depth > 1 ? "qrc:/images/back" : "qrc:/images/add"
             icon.height: 50
             icon.width: 50
 

@@ -41,7 +41,7 @@ Dialog {
             ToolButton {
                 anchors.right: timeInput.right
                 anchors.verticalCenter: timeInput.verticalCenter
-                icon.source: "images/clock-icon"
+                icon.source: "qrc:/images/clock-icon"
 
                 onClicked: {
                     clock.open()

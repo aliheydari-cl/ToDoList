@@ -1,4 +1,5 @@
 #include "database.h"
+#include <QtCore>
 #include <QtSql>
 
 dataBase::dataBase(QObject *parent)

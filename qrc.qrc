@@ -1,0 +1,28 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ui/ShowTask.qml</file>
+        <file>ui/Main.qml</file>
+        <file>ui/Edit.qml</file>
+        <file>ui/ClockForm.qml</file>
+        <file>ui/Clock.qml</file>
+        <file>ui/AddTask.qml</file>
+        <file>font/B-NAZANIN.TTF</file>
+        <file>images/settings.png</file>
+        <file>images/S06.png</file>
+        <file>images/S05.png</file>
+        <file>images/S04.png</file>
+        <file>images/S03.png</file>
+        <file>images/S02.png</file>
+        <file>images/S01.png</file>
+        <file>images/Minutes_Clock.svg</file>
+        <file>images/menu.png</file>
+        <file>images/help.png</file>
+        <file>images/email.png</file>
+        <file>images/clock-icon.png</file>
+        <file>images/clock_Hand.svg</file>
+        <file>images/clock.svg</file>
+        <file>images/back.png</file>
+        <file>images/add.png</file>
+        <file>images/about.png</file>
+    </qresource>
+</RCC>

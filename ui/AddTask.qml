@@ -38,7 +38,7 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 ToolButton {
                     anchors.right: clockInput.right
-                    icon.source: "images/clock-icon"
+                    icon.source: "qrc:/images/clock-icon"
                     anchors.verticalCenter: parent.verticalCenter
 
                     onClicked: {

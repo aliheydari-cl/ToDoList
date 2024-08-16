@@ -2,7 +2,9 @@
 #define DATABASE_H
 
 #include <QObject>
-#include <QtSql>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlQueryModel>
 #include <QMap>
 
 class dataBase : public QObject
