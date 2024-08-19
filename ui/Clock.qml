@@ -23,6 +23,7 @@ Dialog {
             TextField {
                 id:time1
                 width: 50
+                font.family: Font.Medium
             }
 
             Label {
@@ -35,6 +36,7 @@ Dialog {
             TextField {
                 id:time2
                 width: 50
+                font.family: Font.Medium
             }
         }
     }

@@ -1,22 +1,25 @@
 import QtQuick
 import QtQuick.Controls.Material
 import QtQuick.Layouts
+import QtQuick.Effects
 
 Page {
-    width: window.width
-    height: window.height
+
+    width: parent.width
+    height: parent.height
 
     Edit {
         id:editPage
     }
 
     Pane {
+        id: pane
         anchors.fill: parent
 
         ListView {
             id:lv
             width: parent.width
-            height: contentHeight
+            height: parent.height - 60
             model: listModel
             spacing:5
 
@@ -34,97 +37,105 @@ Page {
                 radius: 10
                 color: setting.backgroundColor === "light" ? "#EEEEEE" : "#757575"
 
-                Rectangle {
-                    id:rect
-                    color: "red"
-                    width: 60
-                    height: parent.height * 0.85
-                    radius: 10
-
-                    anchors.rightMargin: 5
-                    anchors.verticalCenter: parent.verticalCenter
+                ColumnLayout {
                     anchors.right: parent.right
+                    width: 30
+                    height: parent.height
 
-                    Text {
-                        text: "DELETE"
-                        font.pixelSize: 14
-                        font.bold: true
-                        anchors.centerIn: parent
-                    }
+                    Item {
+                        id: editButton
+                        width: 25
+                        height: 25
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            database.deleteDataBase(dlg.title, dlg.description)
-                            anim.start()
-                            title = ""
-                            description = ""
-                            time = ""
-                            timeBackground.color = "transparent"
+                        IconImage {
+                            source: "qrc:/images/edit.png"
+                            sourceSize.width: parent.width - 5
+                            color: "black"
+
+                            anchors.centerIn: parent
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                editPage.titleText = dlg.title
+                                editPage.descriptionText = dlg.description
+                                editPage.timeText = dlg.time
+
+                                editPage.open()
+
+                            }
+                        }
+
+                        PropertyAnimation {
+                            id: anim
+                            target: dlg
+                            duration: 300
+                            property: "width"
+                            to: 0
+                            onStopped: listModel.remove(index)
                         }
                     }
 
-                    PropertyAnimation {
-                        id: anim
-                        target: dlg
-                        duration: 1000
-                        property: "width"
-                        to: 0
-                        onStopped: listModel.remove(index)
-                    }
-                }
+                    Item {
+                        id: deleteButton
+                        width: 25
+                        height: 25
 
-                Rectangle {
-                    id: editButton
-                    color: "#4CAF50"
-                    width: 60
-                    height: parent.height * 0.85
-                    radius: 10
+                        IconImage {
+                            source: "qrc:/images/delete.png"
+                            sourceSize.width: parent.width - 5
+                            color: "black"
 
-                    anchors.right: rect.left
-                    anchors.rightMargin: 10
-                    anchors.verticalCenter: parent.verticalCenter
+                        }
 
-                    Text {
-                        text: qsTr("Edit")
-                        anchors.centerIn: parent
-                    }
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                database.deleteDataBase(dlg.title, dlg.description)
+                                anim.start()
+                                title = ""
+                                description = ""
+                                time = ""
+                                timeRectangle.color = "transparent"
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            editPage.titleText = dlg.title
-                            editPage.descriptionText = dlg.description
-                            editPage.timeText = dlg.time
-
-                            editPage.open()
+                            }
                         }
                     }
                 }
+
 
                 Column {
                     padding: 7
 
                     RowLayout{
                         spacing: 10
+                        anchors.right: isPersian(dlg.title) ? parent.right : undefined
 
                         Text {
                             id: titleText
                             text:dlg.title
                             font.bold: true
-                            font.pixelSize: setting.fontSize
+                            font.pixelSize: setting.fontSize - 2
+                            font.family: Font.Medium
                         }
 
-                        Label {
-                            id:timeLabel
-                            text:dlg.time
-                            font.bold: true
-                            font.pixelSize: setting.fontSize - 2
+                        Rectangle {
+                            id: timeRectangle
+                            width: timeLabel.width + 7
+                            height: timeLabel.height + 7
+                            color: "#8BC34A"
+                            radius: 10
 
-                            background: Rectangle{
-                                id:timeBackground
-                                color: "#8BC34A"
-                                width: parent.width
+
+                            Label {
+                                id:timeLabel
+                                text:dlg.time
+                                font.bold: true
+                                font.pixelSize: setting.fontSize - 2
+
+                                anchors.centerIn: parent
+                                font.family: Font.Medium
                             }
                         }
                     }
@@ -132,21 +143,23 @@ Page {
                     Text {
                         id: descriptionText
                         text: dlg.description
-                        font.pixelSize: setting.fontSize
+                        font.pixelSize: setting.fontSize - 2
                         wrapMode: Text.Wrap
-                        width: dlg.width - (editButton.width + rect.width + 25)
+                        width: dlg.width - (editButton.width + 20)
+                        font.family: Font.Medium
                     }
                 }
             }
         }
 
         Rectangle {
-            visible: listModel.count > 0 ? true : false
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: lv.bottom
-            anchors.topMargin: 20
+            id: deleteAll
             width: 100
             height: 50
+
+            visible: listModel.count > 0 ? true : false
+            anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
             color: setting.backgroundColor === "light" ? "#EEEEEE" : "#757575"
 
             radius: 20
@@ -165,5 +178,24 @@ Page {
                 }
             }
         }
+
+        MultiEffect {
+            id:effect
+            anchors.fill: deleteAll
+            source: deleteAll
+            shadowEnabled: true
+            shadowOpacity: .3
+            shadowHorizontalOffset: 0
+            shadowVerticalOffset: 0
+            shadowBlur: 1
+            blurMax: 3
+            visible: deleteAll.visible
+        }
     }
+
+    function isPersian(text) {
+        var persianCharacters = /[\u0600-\u06FF\uFB8A\u067E\u0686\u06AF]/;
+        return persianCharacters.test(text);
+    }
+
 }

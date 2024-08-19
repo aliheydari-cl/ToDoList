@@ -7,8 +7,8 @@ import Database
 
 ApplicationWindow {
     id:window
-    width: 600
-    height: 700
+    width: 375
+    height: 800
     visible: true
     title: qsTr("ToDoList")
     font.pixelSize: setting.fontSize
@@ -83,6 +83,7 @@ ApplicationWindow {
 
             onClicked: optionsMenu.open()
         }
+
         Dialog {
             id:aboutDialog
             title: "About"
@@ -199,41 +200,58 @@ ApplicationWindow {
     StackView {
         id:stackView
         initialItem: showTask
+        anchors.fill: parent
     }
 
-    footer: Rectangle {
-        id:footer
-        color: "#4CAF50"
-        width: parent.width
+    Rectangle {
+        id: addButton
+        width: 40
         height: 40
+        radius: width / 2
+        color: "#4CAF50"
 
-        ToolButton {
-            id:addButton
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.bottomMargin: 15
+        anchors.rightMargin: 15
+
+        IconImage {
+            source: stackView.depth > 1 ? "qrc:/images/back" : "qrc:/images/add.png"
+            sourceSize.width: parent.width - 5
+            color: "white"
+
             anchors.centerIn: parent
-            width: 50
-            height: 50
-            icon.source: stackView.depth > 1 ? "qrc:/images/back" : "qrc:/images/add"
-            icon.height: 50
-            icon.width: 50
+        }
 
-            MouseArea {
-                anchors.fill: parent
-                id:footerButton
-                onClicked: {
-                    stackView.depth > 1 ? stackView.pop() : stackView.push(addTask)
-                }
+        MouseArea {
+            anchors.fill: parent
+            id:footerButton
+
+            onClicked: {
+                stackView.depth > 1 ? stackView.pop() : stackView.push(addTask)
+                anime.start()
             }
         }
     }
+
+    SequentialAnimation {
+        id: anime
+
+        PropertyAnimation {
+            target: addButton
+            property: "scale"
+            duration: 100
+            from: 1.0
+            to: 1.1
+        }
+
+        PropertyAnimation {
+            target: addButton
+            property: "scale"
+            duration: 100
+            from: 1.1
+            to: 1.0
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
 

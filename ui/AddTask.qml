@@ -18,6 +18,7 @@ Page {
     
     Pane {
         anchors.fill: parent
+
         Column {
             height: parent.height * 0.7
             width: parent.width
@@ -27,15 +28,19 @@ Page {
             TextField {
                 id:t1
                 placeholderText: "Label"
-                width: parent.width * 0.6
+                width: parent.width * 0.8
                 anchors.horizontalCenter: parent.horizontalCenter
+                font.family: Font.Medium
             }
 
             TextField {
                 id:clockInput
                 placeholderText: "Time"
-                width: parent.width * 0.6
+                width: parent.width * 0.8
                 anchors.horizontalCenter: parent.horizontalCenter
+                font.family: Font.Medium
+
+
                 ToolButton {
                     anchors.right: clockInput.right
                     icon.source: "qrc:/images/clock-icon"
@@ -50,9 +55,11 @@ Page {
             TextArea {
                 id:t2
                 placeholderText: "Description"
-                width: parent.width * 0.6
+                width: parent.width * 0.8
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: "Wrap"
+                font.family: Font.Medium
+
             }
 
             Button {
@@ -60,6 +67,7 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: 100
                 enabled: t1.text.length > 0 && t2.text.length > 0
+
                 onClicked: {
                     listModel.append({_title: t1.text, _des: t2.text, _time: clockInput.text})
                     database.addList(t1.text, t2.text, clockInput.text)

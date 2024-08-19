@@ -27,16 +27,20 @@ Dialog {
 
         TextField {
             id: titleInput
+            width: 200
             placeholderText: "New title"
             anchors.horizontalCenter: parent.horizontalCenter
-            width: 200
+            font.family: Font.Medium
+
         }
 
         TextField {
             id: timeInput
+            width: 200
             placeholderText: "New time"
             anchors.horizontalCenter: parent.horizontalCenter
-            width: 200
+            font.family: Font.Medium
+
 
             ToolButton {
                 anchors.right: timeInput.right
@@ -51,9 +55,11 @@ Dialog {
 
         TextField {
             id: descriptionInput
+            width: 200
             placeholderText: "New description"
             anchors.horizontalCenter: parent.horizontalCenter
-            width: 200
+            font.family: Font.Medium
+
 
         }
     }
