@@ -1,6 +1,5 @@
 import QtQuick
 import QtCore
-
 import QtQuick.Controls.Material
 
 Page {

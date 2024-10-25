@@ -16,6 +16,10 @@ Dialog {
             text: "Select time"
         }
 
+        ClockForm {
+            id: clcockFork
+        }
+
         Row {
             spacing: 5
             anchors.horizontalCenter: parent.horizontalCenter
@@ -24,6 +28,11 @@ Dialog {
                 id:time1
                 width: 50
                 font.family: Font.Medium
+                text: clcockFork.hClock
+
+                onFocusChanged: {
+                    clcockFork.hClockFocus = true
+                }
             }
 
             Label {
@@ -37,6 +46,11 @@ Dialog {
                 id:time2
                 width: 50
                 font.family: Font.Medium
+                text: clcockFork.mClock
+
+                onFocusChanged: {
+                    clcockFork.hClockFocus = false
+                }
             }
         }
     }

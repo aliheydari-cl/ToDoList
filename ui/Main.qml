@@ -1,4 +1,5 @@
 import QtCore
+import QtQuick
 import QtQuick.Window
 import QtQuick.Controls.Material
 import QtQuick.Layouts
@@ -98,7 +99,7 @@ ApplicationWindow {
                 spacing: 20
 
                 Text {
-                    text: qsTr("Created by Ali Heidary")
+                    text: qsTr("Created by Ali Heydari")
                 }
 
                 Row {
@@ -215,10 +216,10 @@ ApplicationWindow {
         anchors.bottomMargin: 15
         anchors.rightMargin: 15
 
-        IconImage {
-            source: stackView.depth > 1 ? "qrc:/images/back" : "qrc:/images/add.png"
-            sourceSize.width: parent.width - 5
-            color: "white"
+        RoundButton {
+            icon.source: stackView.depth > 1 ? "qrc:/images/back" : "qrc:/images/add.png"
+            icon.width: parent.width
+            icon.color: "white"
 
             anchors.centerIn: parent
         }
