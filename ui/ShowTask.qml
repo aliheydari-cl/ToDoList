@@ -4,7 +4,6 @@ import QtQuick.Layouts
 import QtQuick.Effects
 
 Page {
-
     width: parent.width
     height: parent.height
 
@@ -20,17 +19,11 @@ Page {
             id:lv
             width: parent.width
             height: parent.height - 60
-            model: listModel
+            model: database
             spacing:5
 
             delegate: Rectangle {
                 id:dlg
-                property string title
-                property string description
-                property string time
-                title: _title
-                description: _des
-                time: _time
 
                 height: descriptionText.height + titleText.height + 20
                 width: lv.width
@@ -42,25 +35,21 @@ Page {
                     width: 30
                     height: parent.height
 
-
                     Image {
                         id: editButton
                         source: "qrc:/images/edit.png"
                         sourceSize.width: parent.width - 10
 
-
                         MouseArea {
                             anchors.fill: parent
 
                             onClicked: {
-                                editPage.titleText = dlg.title
-                                editPage.descriptionText = dlg.description
-                                editPage.timeText = dlg.time
-
+                                editPage.titleText = model.title
+                                editPage.descriptionText = model.description
+                                editPage.timeText = model.time
                                 editPage.open()
                             }
                         }
-
                     }
 
                     Image {
@@ -71,11 +60,10 @@ Page {
                             anchors.fill: parent
 
                             onClicked: {
-                                database.deleteDataBase(dlg.title, dlg.description)
                                 anim.start()
-                                title = ""
-                                description = ""
-                                time = ""
+                                titleText.text = ""
+                                descriptionText.text = ""
+                                timeLabel.text = ""
                                 timeRectangle.color = "transparent"
                             }
                         }
@@ -87,7 +75,8 @@ Page {
                         duration: 300
                         property: "width"
                         to: 0
-                        onStopped: listModel.remove(index)
+                        onStopped: database.deleteDatabase(model.title, model.description)
+
                     }
                 }
 
@@ -101,7 +90,7 @@ Page {
 
                         Text {
                             id: titleText
-                            text:dlg.title
+                            text: model.title
                             font.bold: true
                             font.pixelSize: setting.fontSize - 2
                             font.family: Font.Medium
@@ -114,13 +103,11 @@ Page {
                             color: "#8BC34A"
                             radius: 10
 
-
                             Label {
                                 id:timeLabel
-                                text:dlg.time
+                                text: model.time
                                 font.bold: true
                                 font.pixelSize: setting.fontSize - 2
-
 
                                 anchors.centerIn: parent
                                 font.family: Font.Medium
@@ -130,7 +117,7 @@ Page {
 
                     Text {
                         id: descriptionText
-                        text: dlg.description
+                        text: model.description
                         font.pixelSize: setting.fontSize - 2
                         wrapMode: Text.Wrap
                         width: dlg.width - (editButton.width + 20)
@@ -146,7 +133,6 @@ Page {
         width: 100
         height: 50
 
-        visible: listModel.count > 0 ? true : false
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 5
         anchors.horizontalCenter: parent.horizontalCenter
@@ -163,8 +149,6 @@ Page {
             anchors.fill: parent
             onClicked: {
                 database.deleteAll()
-
-                listModel.clear();
             }
         }
     }

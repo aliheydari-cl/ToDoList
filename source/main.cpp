@@ -9,10 +9,10 @@ int main(int argc, char *argv[])
 
     QCoreApplication::setOrganizationName("Ali Heydari");
 
-    qmlRegisterType<dataBase>("Database", 1, 0, "Database");
-
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/ui/Main.qml"));
+    DataBase dataBase;
+    engine.rootContext()->setContextProperty("database", &dataBase);
 
     QObject::connect(
         &engine,

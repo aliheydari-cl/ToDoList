@@ -4,8 +4,6 @@ import QtQuick.Window
 import QtQuick.Controls.Material
 import QtQuick.Layouts
 
-import Database
-
 ApplicationWindow {
     id:window
     width: 375
@@ -21,27 +19,12 @@ ApplicationWindow {
         property int fontSize
     }
 
-    Component.onCompleted: {
-        database.getDataBase()
-        for (var i = 0; i < database.list.length; i +=3) {
-                listModel.append({_title: database.list[i], _des: database.list[i+1], _time: database.list[i+2]});
-            }
-    }
-
     FontLoader {
         id: fontLoader
         source: "qrc:/font/B-NAZANIN.TTF"
     }
 
     font.family: fontLoader.name
-
-    ListModel {
-        id:listModel
-    }
-    
-    Database {
-        id:database
-    }
 
     header:Rectangle {
         width: parent.width
@@ -95,7 +78,6 @@ ApplicationWindow {
             onAccepted: aboutDialog.close()
 
             ColumnLayout{
-
                 spacing: 20
 
                 Text {
@@ -103,7 +85,6 @@ ApplicationWindow {
                 }
 
                 Row {
-
                     Image {
                         source: "qrc:/images/email"
                         width: 20
@@ -129,17 +110,14 @@ ApplicationWindow {
             Column{
                 Text {
                     width: 300
-
                     text: qsTr("This application allows you to create a list of your daily tasks and activities."
                     + "By entering the title, description, and time for each task, you can add them to your list. "
                     + "Additionally, you have the option to edit or delete individual tasks, "
                     + "as well as the option to delete all tasks at once using the 'Delete All' feature.")
-
                     wrapMode:Text.Wrap
                 }
             }
         }
-
 
         Dialog {
             id:settingDialog
@@ -149,11 +127,9 @@ ApplicationWindow {
             focus: true
             standardButtons: Dialog.Close | Dialog.Ok
             onAccepted: checkBox.checked ?  setting.backgroundColor = "black" : setting.backgroundColor = "light"
-
             onRejected: settingDialog.close()
 
             ColumnLayout {
-
                 CheckBox {
                     id:checkBox
                     text: "Dark mode"

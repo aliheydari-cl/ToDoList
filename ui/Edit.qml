@@ -31,7 +31,6 @@ Dialog {
             placeholderText: "New title"
             anchors.horizontalCenter: parent.horizontalCenter
             font.family: Font.Medium
-
         }
 
         TextField {
@@ -40,7 +39,6 @@ Dialog {
             placeholderText: "New time"
             anchors.horizontalCenter: parent.horizontalCenter
             font.family: Font.Medium
-
 
             ToolButton {
                 anchors.right: timeInput.right
@@ -59,8 +57,6 @@ Dialog {
             placeholderText: "New description"
             anchors.horizontalCenter: parent.horizontalCenter
             font.family: Font.Medium
-
-
         }
     }
 
@@ -75,13 +71,7 @@ Dialog {
         timeTemp = timeInput.text.length < 1 ? timeText : timeInput.text
         descriptionTemp = descriptionInput.text.length < 1 ? descriptionText : descriptionInput.text
 
-        database.editDataBase(titleTemp, timeTemp, descriptionTemp, descriptionText, titleText)
-
-        listModel.clear()
-        database.getDataBase()
-        for (var i = 0; i < database.list.length; i +=3) {
-                listModel.append({_title: database.list[i], _des: database.list[i+1], _time: database.list[i+2]});
-            }
+        database.editDatabase(titleTemp, timeTemp, descriptionTemp, descriptionText, titleText)
 
         titleInput.text = ""
         timeInput.text = ""

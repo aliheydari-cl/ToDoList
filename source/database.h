@@ -7,31 +7,43 @@
 #include <QSqlQueryModel>
 #include <QMap>
 
-class dataBase : public QObject
+class DataBase : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(QStringList list READ getList WRITE setList NOTIFY listChanged)
 public:
-    explicit dataBase(QObject *parent = nullptr);
-    ~dataBase();
+    explicit DataBase(QObject *parent = nullptr);
+    ~DataBase();
+
+    enum modeldRoles {
+        title = Qt::UserRole + 1,
+        description,
+        time
+    };
+
+    int rowCount(const QModelIndex &parent) const;
+    QVariant data(const QModelIndex &index, int role) const;
+    QHash<int, QByteArray> roleNames() const;
 
 signals:
     void listChanged();
 
-
 public slots:
-    void addList(QString title, QString des, QString time);
-    void getDataBase();
-    QStringList getList();
-    void setList(QStringList l);
-    void deleteDataBase(QString title, QString description);
-    void deleteAll();
-    void editDataBase(const QString &newTitle, const QString &newDescription, const QString &newTime, QString description, QString title);
+    Q_INVOKABLE void addList(QString title, QString des, QString time);
+    Q_INVOKABLE void getDatabase();
+    Q_INVOKABLE void deleteDatabase(QString title, QString description);
+    Q_INVOKABLE void deleteAll();
+    Q_INVOKABLE void editDatabase(const QString &newTitle, const QString &newDescription, const QString &newTime, QString description, QString title);
 
 private:
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    dataBase *database;
-    QStringList cppList;
+
+    struct modelItem {
+        QString title;
+        QString description;
+        QString time;
+    };
+
+    QList<modelItem> m_items;
 };
 
-#endif // DATABASE_H
+#endif

@@ -68,7 +68,6 @@ Page {
                 enabled: t1.text.length > 0 && t2.text.length > 0
 
                 onClicked: {
-                    listModel.append({_title: t1.text, _des: t2.text, _time: clockInput.text})
                     database.addList(t1.text, t2.text, clockInput.text)
                     t1.text = ""
                     t2.text = ""
