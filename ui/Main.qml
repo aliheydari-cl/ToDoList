@@ -38,34 +38,40 @@ ApplicationWindow {
             anchors.centerIn: parent
         }
 
-        ToolButton {
-            icon.source: "qrc:/images/menu"
+        Image {
+            source: "qrc:/images/menu"
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
+            anchors.rightMargin: 10
 
-            Menu {
-                id: optionsMenu
-                x: parent.width - width
-                transformOrigin: Menu.TopRight
-
-                Action {
-                    text: qsTr("Settings")
-                    onTriggered: settingDialog.open()
-                    icon.source: "qrc:/images/settings"
-                }
-                Action {
-                    text: qsTr("Help")
-                    onTriggered: helpDialog.open()
-                    icon.source: "qrc:/images/help"
-                }
-                Action {
-                    text: qsTr("About")
-                    onTriggered: aboutDialog.open()
-                    icon.source: "qrc:/images/about"
-                }
+            MouseArea {
+                anchors.centerIn: parent
+                width: 50
+                height: 50
+                onClicked: optionsMenu.open()
             }
 
-            onClicked: optionsMenu.open()
+        }
+
+        Menu {
+            id: optionsMenu
+            x: parent.width - width
+            transformOrigin: Menu.TopRight
+            Action {
+                text: qsTr("Settings")
+                onTriggered: settingDialog.open()
+                icon.source: "qrc:/images/settings"
+            }
+            Action {
+                text: qsTr("Help")
+                onTriggered: helpDialog.open()
+                icon.source: "qrc:/images/help"
+            }
+            Action {
+                text: qsTr("About")
+                onTriggered: aboutDialog.open()
+                icon.source: "qrc:/images/about"
+            }
         }
 
         Dialog {
@@ -185,24 +191,21 @@ ApplicationWindow {
         width: 40
         height: 40
         radius: width / 2
-        color: "#4CAF50"
+        color: setting.backgroundColor === "light" ? "#EEEEEE" : "#4CAF50"
 
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.bottomMargin: 15
         anchors.rightMargin: 15
 
-        RoundButton {
-            icon.source: stackView.depth > 1 ? "qrc:/images/back" : "qrc:/images/add.png"
-            icon.width: parent.width
-            icon.color: "white"
-
+        Image {
+            source: stackView.depth > 1 ? "qrc:/images/back" : "qrc:/images/add.png"
+            sourceSize.width: 30
             anchors.centerIn: parent
         }
 
         MouseArea {
             anchors.fill: parent
-            id:footerButton
 
             onClicked: {
                 stackView.depth > 1 ? stackView.pop() : stackView.push(addTask)

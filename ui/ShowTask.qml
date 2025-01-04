@@ -76,7 +76,6 @@ Page {
                         property: "width"
                         to: 0
                         onStopped: database.deleteDatabase(model.title, model.description)
-
                     }
                 }
 
@@ -132,9 +131,10 @@ Page {
         id: deleteAll
         width: 100
         height: 50
+        visible: lv.count > 0 ? true : false
 
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 5
+        anchors.bottomMargin: 15
         anchors.horizontalCenter: parent.horizontalCenter
         color: setting.backgroundColor === "light" ? "#EEEEEE" : "#757575"
 
